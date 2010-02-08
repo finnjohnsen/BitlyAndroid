@@ -1,5 +1,3 @@
-yaya
-
 The easiest way to get this, is just to grab BitlyAndroid.java in the source above and include it in your source.
 /src/com /finnjohnsen/bitlyandroid/test/BitlyAndroid.java
 
