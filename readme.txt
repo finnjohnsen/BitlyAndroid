@@ -1,3 +1,6 @@
+The easiest way to get this, is just to grab BitlyAndroid.java in the source above and include it in your source.
+/src/com /finnjohnsen/bitlyandroid/test/BitlyAndroid.java
+
 To open the project in eclipse
 1. File -> New -> Other -> Android Project 
 2. Create project from existing source. 
