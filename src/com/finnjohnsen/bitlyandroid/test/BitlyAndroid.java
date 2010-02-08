@@ -36,7 +36,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.CoreProtocolPNames;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,8 +61,6 @@ public class BitlyAndroid {
 	public BitlyAndroid(String login, String apiKey) {
 		bitlyAuth = "&format=json&login=" + login + "&apiKey=" + apiKey;
 		httpclient = new DefaultHttpClient();
-		httpclient.getParams()
-				.setParameter(CoreProtocolPNames.USER_AGENT, "Android Torrentflux Uploader, Apache-HttpClient/4.0 (java 1.5)");
 	}
 
 	public String getShortUrl(String urlToShorten) throws Exception {
