@@ -30,6 +30,7 @@ or implied, of Johnsen.
 import junit.framework.TestCase;
 
 import com.finnjohnsen.bitlyandroid.test.BitlyAndroid.BitlyReply;
+import com.finnjohnsen.bitlyandroid.test.BitlyAndroid.BitlyService;
 
 public class BitlyAndroidTest extends TestCase {
 
@@ -42,6 +43,7 @@ public class BitlyAndroidTest extends TestCase {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
+		BitlyAndroid.service = BitlyService.BITLY;
 		bitly = new BitlyAndroid(LOGIN, APIKEY);
 	}
 
@@ -74,5 +76,17 @@ public class BitlyAndroidTest extends TestCase {
 		assertNotNull(reply.result.hash);
 		String shortUrl = reply.getShortUrl();
 		assertTrue(shortUrl.startsWith("http://bit.ly/"));
+	}
+
+	/**
+	 * Tests j.mp shortUrl returned.
+	 */
+	public void testGetShortUrlFromJMP() throws Exception {
+		BitlyAndroid.service = BitlyService.JMP;
+		String urlToShorten = "http://johnsenf.blogspot.com/2010/01/android-app-published-1-week-ago.html";
+		BitlyReply reply = bitly.getBitlyReply(urlToShorten);
+		assertNotNull(reply.result.hash);
+		String shortUrl = reply.getShortUrl();
+		assertTrue(shortUrl.startsWith("http://j.mp/"));
 	}
 }

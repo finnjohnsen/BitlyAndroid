@@ -51,9 +51,12 @@ import org.json.JSONObject;
  * 
  */
 public class BitlyAndroid {
-	private HttpClient httpclient = null;
-	private final String bitlyUrl = "http://api.bit.ly/shorten?version=2.0.1&longUrl=";
+	/** Change this if you want to use j.mp instead. */
+	public static BitlyService service = BitlyService.BITLY;
+
 	private final String bitlyAuth;
+
+	private HttpClient httpclient = null;
 
 	/** Last response kept in case user gets exception and wants to see the response from bit.ly. */
 	private BitlyReply lastResponse = null;
@@ -78,7 +81,7 @@ public class BitlyAndroid {
 	}
 
 	private String getBitlyHttpResponseText(String urlToShorten) throws IOException {
-		String uri = bitlyUrl + urlToShorten + bitlyAuth;
+		String uri = getBitlyUrl() + urlToShorten + bitlyAuth;
 		HttpGet httpGet = new HttpGet(uri);
 		HttpResponse response = httpclient.execute(httpGet);
 		String json = getText(response);
@@ -98,6 +101,10 @@ public class BitlyAndroid {
 
 	public BitlyReply getLastResponseFromBitLy() {
 		return lastResponse;
+	}
+
+	private String getBitlyUrl() {
+		return "http://api." + BitlyAndroid.service + "/shorten?version=2.0.1&longUrl=";
 	}
 
 	/** Represents a response from bit.ly. Mimics the structure of the JSON data. */
@@ -149,6 +156,20 @@ public class BitlyAndroid {
 		}
 	}
 
+	public enum BitlyService {
+		BITLY {
+			@Override
+			public String toString() {
+				return "bit.ly";
+			}
+		},
+		JMP {
+			@Override
+			public String toString() {
+				return "j.mp";
+			}
+		}
+	}
 	/*
 	 * Sample response from bit.ly
 	 * 
