@@ -31,6 +31,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -81,7 +82,7 @@ public class BitlyAndroid {
 	}
 
 	private String getBitlyHttpResponseText(String urlToShorten) throws IOException {
-		String uri = getBitlyUrl() + urlToShorten + bitlyAuth;
+		String uri = getBitlyUrl() + URLEncoder.encode(urlToShorten) + bitlyAuth;
 		HttpGet httpGet = new HttpGet(uri);
 		HttpResponse response = httpclient.execute(httpGet);
 		String json = getText(response);

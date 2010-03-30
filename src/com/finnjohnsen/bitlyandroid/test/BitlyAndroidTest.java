@@ -89,4 +89,15 @@ public class BitlyAndroidTest extends TestCase {
 		String shortUrl = reply.getShortUrl();
 		assertTrue(shortUrl.startsWith("http://j.mp/"));
 	}
+
+	/**
+	 * Test to confirm different chars work.
+	 */
+	public void testGetShortUrlFromDifferentChars() throws Exception {
+		String urlToShorten = "https://mail.google.com/mail/?shva=1#search/bit.ly";
+		BitlyReply reply = bitly.getBitlyReply(urlToShorten);
+		assertNotNull(reply.result.hash);
+		String shortUrl = reply.getShortUrl();
+		assertTrue(shortUrl.startsWith("http://bit.ly/"));
+	}
 }
